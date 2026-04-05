@@ -55,6 +55,7 @@
 
             <!-- ── PLAYLIST SONGS ──────────────────────────── -->
             <TextView
+                android:id="@+id/tv_section_songs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="◈ SONGS IN PLAYLIST"
@@ -113,6 +114,7 @@
                     android:layout_marginBottom="8dp" />
 
                 <TextView
+                    android:id="@+id/tv_section_all_songs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="◈ ALL SONGS — TAP + TO ADD"

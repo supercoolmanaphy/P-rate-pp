@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="◈ SELECT ACCENT HUE"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:textColor="@color/neon_cyan"
+        android:letterSpacing="0.15"
+        android:textAllCaps="true"
+        android:shadowColor="@color/neon_cyan"
+        android:shadowRadius="4"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp" />
+
+    <com.praticpp.ui.HueWheelView
+        android:id="@+id/hue_wheel"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_hue_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HUE: 195°"
+        android:fontFamily="monospace"
+        android:textSize="11sp"
+        android:textColor="@color/text_secondary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="14dp" />
+
+</LinearLayout>

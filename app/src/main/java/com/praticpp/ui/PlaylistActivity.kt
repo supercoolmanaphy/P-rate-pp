@@ -60,12 +60,19 @@ class PlaylistActivity : AppCompatActivity() {
             toggleAddSongsPanel()
         }
 
+        ThemeManager.load(this)
+        ThemeManager.applyToPlaylistBinding(binding)
+
         loadData()
     }
 
     override fun onResume() {
         super.onResume()
+        ThemeManager.load(this)
+        ThemeManager.applyToPlaylistBinding(binding)
         refreshPlaylist()
+        playlistSongsAdapter.notifyDataSetChanged()
+        allSongsAdapter.notifyDataSetChanged()
     }
 
     private fun loadData() {

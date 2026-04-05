@@ -24,39 +24,63 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingEnd="12dp"
                 android:paddingTop="40dp"
                 android:paddingBottom="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Title + version stacked -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="P-RATE++"
-                    android:fontFamily="monospace"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/neon_cyan"
-                    android:shadowColor="@color/neon_cyan"
-                    android:shadowRadius="12"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:letterSpacing="0.2" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MUSIC PLAYER v1.0"
-                    android:fontFamily="monospace"
-                    android:textSize="10sp"
-                    android:textColor="@color/neon_green"
-                    android:shadowColor="@color/neon_green"
-                    android:shadowRadius="4"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:letterSpacing="0.15"
-                    android:layout_marginTop="2dp" />
+                    <TextView
+                        android:id="@+id/tv_app_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="P-RATE++"
+                        android:fontFamily="monospace"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_cyan"
+                        android:shadowColor="@color/neon_cyan"
+                        android:shadowRadius="12"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:letterSpacing="0.2" />
+
+                    <TextView
+                        android:id="@+id/tv_app_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MUSIC PLAYER v1.0"
+                        android:fontFamily="monospace"
+                        android:textSize="10sp"
+                        android:textColor="@color/neon_green"
+                        android:shadowColor="@color/neon_green"
+                        android:shadowRadius="4"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:letterSpacing="0.15"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Colour-picker button -->
+                <ImageButton
+                    android:id="@+id/btn_color_picker"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_palette"
+                    android:background="@drawable/bg_icon_button"
+                    android:tint="@color/neon_cyan"
+                    android:contentDescription="Choose accent color"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
 
             </LinearLayout>
 
@@ -78,6 +102,7 @@
                 android:paddingTop="16dp">
 
                 <TextView
+                    android:id="@+id/tv_section_recent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="◈ RECENT DOWNLOADS"
@@ -130,6 +155,7 @@
                     android:layout_marginBottom="10dp">
 
                     <TextView
+                        android:id="@+id/tv_section_playlists"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

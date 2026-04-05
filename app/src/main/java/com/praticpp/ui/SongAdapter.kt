@@ -53,6 +53,8 @@ class SongAdapter(
             } else {
                 addBtn.visibility = View.GONE
             }
+
+            ThemeManager.applyToSongItem(title, if (onAddToPlaylist != null) addBtn else null)
         }
 
         private fun formatDuration(ms: Long): String {
