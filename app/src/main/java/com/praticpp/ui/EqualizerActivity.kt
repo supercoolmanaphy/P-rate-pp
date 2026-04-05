@@ -190,7 +190,10 @@ class EqualizerActivity : AppCompatActivity() {
                     updateLedMeter(band, levelMb.toInt(), minMb, maxMb)
                     eqRepo.setBandLevel(band, levelMb)
                     eqManager.setBandLevel(band.toShort(), levelMb)
-                    if (fromUser) highlightPreset(null)
+                    if (fromUser) {
+                        eqRepo.currentPreset = EqPreset.FLAT.name
+                        highlightPreset(null)
+                    }
                 }
                 override fun onStartTrackingTouch(sb: SeekBar?) {}
                 override fun onStopTrackingTouch(sb: SeekBar?) {}
@@ -275,7 +278,7 @@ class EqualizerActivity : AppCompatActivity() {
         val maxMb = levelRange[1].toInt()
 
         bandSeekBars.forEachIndexed { band, sb ->
-            val levelMb = eqRepo.getBandLevel(band).toInt()
+            val levelMb = eqRepo.getBandLevel(band).toInt().coerceIn(minMb, maxMb)
             val progress = (levelMb - minMb).coerceIn(0, sb.max)
             sb.progress = progress
             bandValueLabels[band].text = formatDb(levelMb)
