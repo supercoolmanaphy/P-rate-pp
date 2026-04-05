@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Song item inside a playlist (with remove button) -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <!-- Album art -->
+    <ImageView
+        android:id="@+id/iv_album_art"
+        android:layout_width="@dimen/album_art_small"
+        android:layout_height="@dimen/album_art_small"
+        android:background="@drawable/bg_album_art"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_music_note"
+        android:layout_marginEnd="10dp" />
+
+    <!-- Title + artist -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_song_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Song Title"
+            style="@style/Y2kSongTitle" />
+
+        <TextView
+            android:id="@+id/tv_song_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Artist"
+            style="@style/Y2kArtistText" />
+
+    </LinearLayout>
+
+    <!-- Duration -->
+    <TextView
+        android:id="@+id/tv_song_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:fontFamily="monospace"
+        android:textSize="9sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp" />
+
+    <!-- Remove from playlist -->
+    <ImageButton
+        android:id="@+id/btn_remove"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_remove"
+        android:padding="6dp"
+        android:contentDescription="Remove from playlist" />
+
+</LinearLayout>

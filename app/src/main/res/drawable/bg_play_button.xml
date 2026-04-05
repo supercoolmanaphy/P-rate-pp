@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Circular chrome play/pause button background -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="#404050"
+                android:endColor="#101018"
+                android:angle="270" />
+            <stroke android:width="2dp" android:color="#00E5FF" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="#C0C0D0"
+                android:centerColor="#606070"
+                android:endColor="#202030"
+                android:angle="270" />
+            <stroke android:width="2dp" android:color="#00A0C0" />
+        </shape>
+    </item>
+</selector>

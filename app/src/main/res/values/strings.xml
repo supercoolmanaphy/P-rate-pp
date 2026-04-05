@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">P-RATE++</string>
+    <string name="recent_downloads">RECENT DOWNLOADS</string>
+    <string name="playlists">PLAYLISTS</string>
+    <string name="now_playing">NOW PLAYING</string>
+    <string name="no_songs">No MP3s found on device</string>
+    <string name="no_playlists">No playlists yet — create one!</string>
+    <string name="create_playlist">+ NEW PLAYLIST</string>
+    <string name="add_songs">+ ADD SONGS</string>
+    <string name="unknown_artist">Unknown Artist</string>
+    <string name="unknown_album">Unknown Album</string>
+    <string name="unknown_title">Unknown</string>
+</resources>
