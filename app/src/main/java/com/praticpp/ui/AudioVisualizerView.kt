@@ -153,10 +153,11 @@ class AudioVisualizerView @JvmOverloads constructor(
             }
             path.moveTo(pts[0][0], pts[0][1])
             for (i in 1 until pts.size - 1) {
-                // Midpoint between successive samples → smooth quadratic bezier
-                val mx = (pts[i][0] + pts[i - 1][0]) / 2f
-                val my = (pts[i][1] + pts[i - 1][1]) / 2f
-                path.quadTo(pts[i - 1][0], pts[i - 1][1], mx, my)
+                // Standard smooth-bezier: use each sample as the control point and the
+                // midpoint to the next sample as the curve endpoint (C1 continuity).
+                val mx = (pts[i][0] + pts[i + 1][0]) / 2f
+                val my = (pts[i][1] + pts[i + 1][1]) / 2f
+                path.quadTo(pts[i][0], pts[i][1], mx, my)
             }
             path.lineTo(pts.last()[0], pts.last()[1])
         }
@@ -228,9 +229,10 @@ class AudioVisualizerView @JvmOverloads constructor(
             }
             path.moveTo(pts[0][0], pts[0][1])
             for (i in 1 until pts.size - 1) {
-                val mx = (pts[i][0] + pts[i - 1][0]) / 2f
-                val my = (pts[i][1] + pts[i - 1][1]) / 2f
-                path.quadTo(pts[i - 1][0], pts[i - 1][1], mx, my)
+                // Same smooth-bezier-through-points pattern as drawWaveform().
+                val mx = (pts[i][0] + pts[i + 1][0]) / 2f
+                val my = (pts[i][1] + pts[i + 1][1]) / 2f
+                path.quadTo(pts[i][0], pts[i][1], mx, my)
             }
             path.close()
         }

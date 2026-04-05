@@ -338,7 +338,7 @@
                 android:layout_margin="4dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_viz_mode"
-                android:contentDescription="Cycle visualizer mode"
+                android:contentDescription="@string/visualizer_mode_description"
                 android:scaleType="centerInside"
                 android:padding="2dp"
                 android:alpha="0.7" />
