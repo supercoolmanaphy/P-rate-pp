@@ -103,12 +103,14 @@ class MainActivity : AppCompatActivity() {
             handler.post(updateProgressRunnable)
             attachVisualizer()
         }
+        currentMirrorView()?.resumeSensor()
     }
 
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(updateProgressRunnable)
         detachVisualizer()
+        currentMirrorView()?.pauseSensor()
     }
 
     override fun onDestroy() {
@@ -283,8 +285,16 @@ class MainActivity : AppCompatActivity() {
                 view.accentColor = ThemeManager.accentColor()
                 binding.flBackground.addView(view)
             }
+            BgTheme.MIRROR_MODE -> {
+                val view = MirrorModeView(this)
+                view.accentHue = ThemeManager.currentHue
+                binding.flBackground.addView(view)
+            }
         }
     }
+
+    private fun currentMirrorView(): MirrorModeView? =
+        binding.flBackground.getChildAt(0) as? MirrorModeView
 
     private fun showColorPickerDialog() {
         val pickerBinding = DialogColorPickerBinding.inflate(LayoutInflater.from(this))
