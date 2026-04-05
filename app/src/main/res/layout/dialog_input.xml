@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple single EditText dialog -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp">
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:hint="Enter name..."
+        android:fontFamily="monospace"
+        android:textColor="@color/neon_cyan"
+        android:textColorHint="@color/text_secondary"
+        android:backgroundTint="@color/neon_cyan"
+        android:textSize="13sp"
+        android:maxLines="1" />
+
+</LinearLayout>

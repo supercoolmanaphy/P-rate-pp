@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="album_art_small">48dp</dimen>
+    <dimen name="album_art_now_playing">52dp</dimen>
+    <dimen name="album_art_large">56dp</dimen>
+    <dimen name="item_padding">12dp</dimen>
+    <dimen name="section_padding">16dp</dimen>
+    <dimen name="neon_border_width">1dp</dimen>
+    <dimen name="control_btn_size">48dp</dimen>
+    <dimen name="play_btn_size">56dp</dimen>
+</resources>
