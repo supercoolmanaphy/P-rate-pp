@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── HEADER ─────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="8dp">
+
+                <ImageButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_arrow_back"
+                    android:background="@drawable/bg_icon_button"
+                    android:tint="@color/neon_cyan"
+                    android:contentDescription="Back"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginEnd="8dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="◈ EQUALIZER"
+                        android:fontFamily="monospace"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/neon_cyan"
+                        android:shadowColor="@color/neon_cyan"
+                        android:shadowRadius="12"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:letterSpacing="0.15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AUDIO EFFECTS MIXER"
+                        android:fontFamily="monospace"
+                        android:textSize="9sp"
+                        android:textColor="@color/neon_green"
+                        android:shadowColor="@color/neon_green"
+                        android:shadowRadius="4"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:letterSpacing="0.1"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/sw_eq_enable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="OFF"
+                    android:textOn="ON"
+                    android:text="EQ"
+                    android:fontFamily="monospace"
+                    android:textSize="10sp"
+                    android:textColor="@color/neon_cyan"
+                    android:thumbTint="@color/neon_magenta"
+                    android:trackTint="@color/neon_cyan_dim" />
+
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_neon"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <!-- ── PRESETS ──────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_eq_panel"
+                android:layout_margin="16dp"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▸ PRESETS"
+                    style="@style/Y2kSectionHeader"
+                    android:layout_marginBottom="10dp" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/ll_presets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- Preset buttons injected programmatically -->
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <!-- ── FREQUENCY BANDS ────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_eq_panel"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▸ FREQUENCY BANDS"
+                    style="@style/Y2kSectionHeader"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- 5 vertical faders in a horizontal row -->
+                <LinearLayout
+                    android:id="@+id/ll_bands"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <!-- Band columns are added programmatically -->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ── AUDIO EFFECTS ──────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_eq_panel"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▸ EFFECTS"
+                    style="@style/Y2kSectionHeader"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- BASS BOOST -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BASS BOOST"
+                    android:fontFamily="monospace"
+                    android:textSize="10sp"
+                    android:textColor="@color/neon_magenta"
+                    android:shadowColor="@color/neon_magenta"
+                    android:shadowRadius="4"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:letterSpacing="0.1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp">
+
+                    <SeekBar
+                        android:id="@+id/sb_bass_boost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="1000"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/bg_eq_effect_bar"
+                        android:thumb="@drawable/bg_eq_effect_thumb"
+                        android:splitTrack="false"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tv_bass_boost_val"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:fontFamily="monospace"
+                        android:textSize="11sp"
+                        android:textColor="@color/neon_magenta"
+                        android:gravity="end"
+                        android:layout_marginStart="8dp" />
+
+                </LinearLayout>
+
+                <!-- VIRTUALIZER -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIRTUALIZER"
+                    android:fontFamily="monospace"
+                    android:textSize="10sp"
+                    android:textColor="@color/neon_green"
+                    android:shadowColor="@color/neon_green"
+                    android:shadowRadius="4"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:letterSpacing="0.1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp">
+
+                    <SeekBar
+                        android:id="@+id/sb_virtualizer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="1000"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/bg_eq_effect_bar"
+                        android:thumb="@drawable/bg_eq_effect_thumb"
+                        android:splitTrack="false"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tv_virtualizer_val"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:fontFamily="monospace"
+                        android:textSize="11sp"
+                        android:textColor="@color/neon_green"
+                        android:gravity="end"
+                        android:layout_marginStart="8dp" />
+
+                </LinearLayout>
+
+                <!-- LOUDNESS ENHANCER -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LOUDNESS ENHANCER"
+                    android:fontFamily="monospace"
+                    android:textSize="10sp"
+                    android:textColor="@color/neon_pink"
+                    android:shadowColor="@color/neon_pink"
+                    android:shadowRadius="4"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:letterSpacing="0.1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp">
+
+                    <SeekBar
+                        android:id="@+id/sb_loudness"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="1000"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/bg_eq_effect_bar"
+                        android:thumb="@drawable/bg_eq_effect_thumb"
+                        android:splitTrack="false"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tv_loudness_val"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="000"
+                        android:fontFamily="monospace"
+                        android:textSize="11sp"
+                        android:textColor="@color/neon_pink"
+                        android:gravity="end"
+                        android:layout_marginStart="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Metallic panel background for EQ section headers -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="0"
+        android:startColor="#1A1A28"
+        android:centerColor="#22223A"
+        android:endColor="#1A1A28" />
+    <stroke android:width="1dp" android:color="#2A2A45" />
+    <corners android:radius="4dp" />
+</shape>

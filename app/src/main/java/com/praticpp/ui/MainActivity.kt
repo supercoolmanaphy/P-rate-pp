@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         setupCreatePlaylistButton()
         setupColorPicker()
         setupThemePicker()
+        setupEqualizerButton()
         ThemeManager.applyToMainBinding(binding)
         applyBackgroundTheme(ThemeManager.currentBgTheme)
         checkPermissionAndLoad()
@@ -213,6 +214,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupThemePicker() {
         binding.btnThemePicker.setOnClickListener {
             showThemePickerDialog()
+        }
+    }
+
+    private fun setupEqualizerButton() {
+        binding.btnEq.setOnClickListener {
+            startActivity(Intent(this, EqualizerActivity::class.java))
         }
     }
 

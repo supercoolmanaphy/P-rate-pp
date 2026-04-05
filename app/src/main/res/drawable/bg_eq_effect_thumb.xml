@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EQ effect slider thumb — smaller metallic knob -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#30FF00FF" />
+            <size android:width="20dp" android:height="20dp" />
+        </shape>
+    </item>
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="#D0D0E0"
+                android:centerColor="#808090"
+                android:endColor="#303040" />
+        </shape>
+    </item>
+</layer-list>

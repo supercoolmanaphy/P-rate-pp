@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EQ fader thumb — metallic knob look -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer glow ring -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#40FF00FF" />
+            <size android:width="22dp" android:height="22dp" />
+        </shape>
+    </item>
+    <!-- Chrome body -->
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="#E0E0E8"
+                android:centerColor="#9090A0"
+                android:endColor="#383848" />
+            <size android:width="16dp" android:height="16dp" />
+        </shape>
+    </item>
+    <!-- Center dot -->
+    <item
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp">
+        <shape android:shape="oval">
+            <solid android:color="#FF00FF" />
+        </shape>
+    </item>
+</layer-list>

@@ -88,6 +88,19 @@
 
                 </LinearLayout>
 
+                <!-- EQ button -->
+                <ImageButton
+                    android:id="@+id/btn_eq"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_eq"
+                    android:background="@drawable/bg_icon_button"
+                    android:tint="@color/neon_cyan"
+                    android:contentDescription="@string/open_equalizer"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginEnd="8dp" />
+
                 <!-- Background theme picker button -->
                 <ImageButton
                     android:id="@+id/btn_theme_picker"
