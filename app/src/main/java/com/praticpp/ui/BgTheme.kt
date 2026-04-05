@@ -5,5 +5,6 @@ enum class BgTheme(val displayName: String) {
     MATRIX("◈ MATRIX RAIN"),
     PLASMA("◈ PLASMA WAVE"),
     STARFIELD("◈ STARFIELD"),
-    CHROME_GRID("◈ CHROME GRID")
+    CHROME_GRID("◈ CHROME GRID"),
+    MIRROR_MODE("◈ MIRROR MODE")
 }
