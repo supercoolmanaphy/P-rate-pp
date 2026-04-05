@@ -49,6 +49,7 @@ class PlaylistSongsAdapter(
 
             itemView.setOnClickListener { onSongClick(song, allSongs) }
             removeBtn.setOnClickListener { onRemove(song) }
+            ThemeManager.applyToPlaylistSongItem(title, removeBtn)
         }
 
         private fun formatDuration(ms: Long): String {

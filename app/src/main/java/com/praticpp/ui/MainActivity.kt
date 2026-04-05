@@ -7,8 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +23,7 @@ import com.praticpp.data.Playlist
 import com.praticpp.data.PlaylistRepository
 import com.praticpp.data.Song
 import com.praticpp.databinding.ActivityMainBinding
+import com.praticpp.databinding.DialogColorPickerBinding
 import com.praticpp.player.MusicPlayerManager
 import kotlinx.coroutines.launch
 
@@ -79,9 +80,12 @@ class MainActivity : AppCompatActivity() {
         musicScanner = MusicScanner(this)
         playlistRepo = PlaylistRepository(this)
 
+        ThemeManager.load(this)
         setupRecyclerViews()
         setupPlayerControls()
         setupCreatePlaylistButton()
+        setupColorPicker()
+        ThemeManager.applyToMainBinding(binding)
         checkPermissionAndLoad()
     }
 
@@ -197,6 +201,36 @@ class MainActivity : AppCompatActivity() {
         binding.btnCreatePlaylist.setOnClickListener {
             showCreatePlaylistDialog()
         }
+    }
+
+    private fun setupColorPicker() {
+        binding.btnColorPicker.setOnClickListener {
+            showColorPickerDialog()
+        }
+    }
+
+    private fun showColorPickerDialog() {
+        val pickerBinding = DialogColorPickerBinding.inflate(LayoutInflater.from(this))
+        pickerBinding.hueWheel.setHue(ThemeManager.currentHue)
+        pickerBinding.tvHueValue.text = "HUE: ${ThemeManager.currentHue.toInt()}°"
+
+        var pendingHue = ThemeManager.currentHue
+        pickerBinding.hueWheel.onHueChanged = { hue ->
+            pendingHue = hue
+            pickerBinding.tvHueValue.text = "HUE: ${hue.toInt()}°"
+        }
+
+        android.app.AlertDialog.Builder(this, R.style.Y2kDialog)
+            .setTitle("ACCENT COLOR")
+            .setView(pickerBinding.root)
+            .setPositiveButton("APPLY") { _, _ ->
+                ThemeManager.save(this, pendingHue)
+                ThemeManager.applyToMainBinding(binding)
+                songAdapter.notifyDataSetChanged()
+                playlistAdapter.notifyDataSetChanged()
+            }
+            .setNegativeButton("CANCEL", null)
+            .show()
     }
 
     // ── Playback ──────────────────────────────────────────────────────────────

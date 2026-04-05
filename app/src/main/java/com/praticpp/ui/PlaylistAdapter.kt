@@ -39,6 +39,7 @@ class PlaylistAdapter(
             itemView.setOnClickListener { onPlaylistClick(playlist) }
             renameBtn.setOnClickListener { onRename(playlist) }
             deleteBtn.setOnClickListener { onDelete(playlist) }
+            ThemeManager.applyToPlaylistItem(name, renameBtn, deleteBtn)
         }
     }
 
