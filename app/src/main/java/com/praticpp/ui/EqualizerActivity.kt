@@ -191,7 +191,7 @@ class EqualizerActivity : AppCompatActivity() {
                     eqRepo.setBandLevel(band, levelMb)
                     eqManager.setBandLevel(band.toShort(), levelMb)
                     if (fromUser) {
-                        eqRepo.currentPreset = EqPreset.FLAT.name
+                        eqRepo.currentPreset = ""
                         highlightPreset(null)
                     }
                 }
