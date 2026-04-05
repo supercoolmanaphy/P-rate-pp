@@ -55,12 +55,18 @@ class MainActivity : AppCompatActivity() {
     private var playlists: MutableList<Playlist> = mutableListOf()
 
     private val permissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) {
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { results ->
+        val storageGranted = results[Manifest.permission.READ_MEDIA_AUDIO]
+            ?: results[Manifest.permission.READ_EXTERNAL_STORAGE]
+            ?: false
+        if (storageGranted) {
             loadMusic()
         } else {
             Toast.makeText(this, "Storage permission required to find music", Toast.LENGTH_LONG).show()
+        }
+        if (results[Manifest.permission.RECORD_AUDIO] != true) {
+            Toast.makeText(this, "Visualizer permission denied (no audio will be recorded)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -94,20 +100,26 @@ class MainActivity : AppCompatActivity() {
     // ── Permission ──────────────────────────────────────────────────────────
 
     private fun checkPermissionAndLoad() {
-        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val storagePermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Manifest.permission.READ_MEDIA_AUDIO
         } else {
             Manifest.permission.READ_EXTERNAL_STORAGE
         }
+        val permissionsToRequest = arrayOf(storagePermission, Manifest.permission.RECORD_AUDIO)
 
-        when {
-            ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED -> loadMusic()
-            shouldShowRequestPermissionRationale(permission) -> {
-                Toast.makeText(this, "Music access needed to scan MP3s", Toast.LENGTH_SHORT).show()
-                permissionLauncher.launch(permission)
-            }
-            else -> permissionLauncher.launch(permission)
+        val allGranted = permissionsToRequest.all {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
         }
+
+        if (allGranted) {
+            loadMusic()
+            return
+        }
+
+        if (permissionsToRequest.any { shouldShowRequestPermissionRationale(it) }) {
+            Toast.makeText(this, "Music access and visualizer permission needed", Toast.LENGTH_SHORT).show()
+        }
+        permissionLauncher.launch(permissionsToRequest)
     }
 
     // ── Data ─────────────────────────────────────────────────────────────────
