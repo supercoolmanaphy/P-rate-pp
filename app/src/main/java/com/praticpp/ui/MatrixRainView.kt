@@ -21,7 +21,7 @@ class MatrixRainView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#\$%^&*()[]アイウエオカキクケコサシスセソ"
+    private val charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()[]アイウエオカキクケコサシスセソ"
     private val fontSize = 36f
 
     private val charPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

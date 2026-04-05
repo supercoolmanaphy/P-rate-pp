@@ -22,12 +22,12 @@ class PlasmaWaveView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    // Low-resolution render target
-    private val RES_W = 120
-    private val RES_H = 68
+    // Low-resolution render target (width × height in pixels)
+    private val resolutionWidth = 120
+    private val resolutionHeight = 68
 
-    private var buffer: Bitmap = Bitmap.createBitmap(RES_W, RES_H, Bitmap.Config.ARGB_8888)
-    private val pixels = IntArray(RES_W * RES_H)
+    private var buffer: Bitmap = Bitmap.createBitmap(resolutionWidth, resolutionHeight, Bitmap.Config.ARGB_8888)
+    private val pixels = IntArray(resolutionWidth * resolutionHeight)
     private val scalePaint = Paint(Paint.FILTER_BITMAP_FLAG)
 
     private var time = 0f
@@ -54,10 +54,10 @@ class PlasmaWaveView @JvmOverloads constructor(
 
     private fun tick() {
         time += 0.045f
-        for (py in 0 until RES_H) {
-            for (px in 0 until RES_W) {
-                val nx = px.toFloat() / RES_W
-                val ny = py.toFloat() / RES_H
+        for (py in 0 until resolutionHeight) {
+            for (px in 0 until resolutionWidth) {
+                val nx = px.toFloat() / resolutionWidth
+                val ny = py.toFloat() / resolutionHeight
                 val v = (sin(nx * 6f + time) +
                          sin(ny * 4f + time * 1.3f) +
                          sin((nx + ny) * 5f + time * 0.7f) +
@@ -66,10 +66,10 @@ class PlasmaWaveView @JvmOverloads constructor(
                 val hue = (accentHue + v * 120f + 360f) % 360f
                 val sat = 1f
                 val lig = 0.3f + v * 0.2f
-                pixels[py * RES_W + px] = ThemeManager.hslToArgb(hue, sat, lig.coerceIn(0.1f, 0.6f))
+                pixels[py * resolutionWidth + px] = ThemeManager.hslToArgb(hue, sat, lig.coerceIn(0.1f, 0.6f))
             }
         }
-        buffer.setPixels(pixels, 0, RES_W, 0, 0, RES_W, RES_H)
+        buffer.setPixels(pixels, 0, resolutionWidth, 0, 0, resolutionWidth, resolutionHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
