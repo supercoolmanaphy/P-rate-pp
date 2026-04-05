@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark">
+
+    <!-- Animated background host — views are added here programmatically -->
+    <FrameLayout
+        android:id="@+id/fl_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Translucent scrim so UI text stays legible over animations -->
+    <View
+        android:id="@+id/v_bg_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <!-- Scrollable content -->
     <androidx.core.widget.NestedScrollView
@@ -69,6 +87,19 @@
                         android:layout_marginTop="2dp" />
 
                 </LinearLayout>
+
+                <!-- Background theme picker button -->
+                <ImageButton
+                    android:id="@+id/btn_theme_picker"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_themes"
+                    android:background="@drawable/bg_icon_button"
+                    android:tint="@color/neon_cyan"
+                    android:contentDescription="Choose background theme"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginEnd="8dp" />
 
                 <!-- Color-picker button -->
                 <ImageButton
@@ -332,4 +363,6 @@
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>
