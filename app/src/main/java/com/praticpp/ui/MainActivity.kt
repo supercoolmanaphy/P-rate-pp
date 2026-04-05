@@ -3,6 +3,7 @@ package com.praticpp.ui
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.audiofx.Visualizer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -26,6 +27,7 @@ import com.praticpp.databinding.ActivityMainBinding
 import com.praticpp.databinding.DialogColorPickerBinding
 import com.praticpp.player.MusicPlayerManager
 import kotlinx.coroutines.launch
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -50,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed(this, 500)
         }
     }
+
+    private var audioVisualizer: Visualizer? = null
 
     private var allSongs: List<Song> = emptyList()
     private var playlists: MutableList<Playlist> = mutableListOf()
@@ -85,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         setupCreatePlaylistButton()
         setupColorPicker()
         setupThemePicker()
+        setupVisualizerToggle()
         ThemeManager.applyToMainBinding(binding)
         applyBackgroundTheme(ThemeManager.currentBgTheme)
         checkPermissionAndLoad()
@@ -94,12 +99,21 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         refreshPlaylists()
         updateNowPlayingBar()
-        if (playerManager.isPlaying) handler.post(updateProgressRunnable)
+        if (playerManager.isPlaying) {
+            handler.post(updateProgressRunnable)
+            attachVisualizer()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(updateProgressRunnable)
+        detachVisualizer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        releaseVisualizer()
     }
 
     // ── Permission ──────────────────────────────────────────────────────────
@@ -180,8 +194,13 @@ class MainActivity : AppCompatActivity() {
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 runOnUiThread {
                     updatePlayPauseIcon()
-                    if (isPlaying) handler.post(updateProgressRunnable)
-                    else handler.removeCallbacks(updateProgressRunnable)
+                    if (isPlaying) {
+                        handler.post(updateProgressRunnable)
+                        attachVisualizer()
+                    } else {
+                        handler.removeCallbacks(updateProgressRunnable)
+                        detachVisualizer()
+                    }
                 }
             }
 
@@ -213,6 +232,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupThemePicker() {
         binding.btnThemePicker.setOnClickListener {
             showThemePickerDialog()
+        }
+    }
+
+    private fun setupVisualizerToggle() {
+        binding.btnVizMode.setOnClickListener {
+            binding.visualizerView.mode = binding.visualizerView.mode.next()
         }
     }
 
@@ -325,6 +350,62 @@ class MainActivity : AppCompatActivity() {
         binding.seekBar.progress = pos.toInt()
         binding.tvCurrentTime.text = formatMs(pos)
         binding.tvTotalTime.text = formatMs(dur)
+    }
+
+    // ── Visualizer ────────────────────────────────────────────────────────────
+
+    /**
+     * Creates (or recreates) an [android.media.audiofx.Visualizer] attached to
+     * the ExoPlayer audio session and starts feeding data into [AudioVisualizerView].
+     *
+     * Requires RECORD_AUDIO permission. Fails silently if the system doesn't
+     * support audio effects (e.g. emulators without audio).
+     */
+    private fun attachVisualizer() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED
+        ) return
+
+        releaseVisualizer()
+        try {
+            val sessionId = playerManager.player.audioSessionId
+            audioVisualizer = Visualizer(sessionId).apply {
+                captureSize = Visualizer.getCaptureSizeRange()[1]
+                setDataCaptureListener(
+                    object : Visualizer.OnDataCaptureListener {
+                        override fun onWaveFormDataCapture(
+                            v: Visualizer, waveform: ByteArray, samplingRate: Int
+                        ) {
+                            binding.visualizerView.updateWaveform(waveform)
+                        }
+
+                        override fun onFftDataCapture(
+                            v: Visualizer, fft: ByteArray, samplingRate: Int
+                        ) {
+                            binding.visualizerView.updateFft(fft)
+                        }
+                    },
+                    Visualizer.getMaxCaptureRate() / 2,
+                    /* waveform = */ true,
+                    /* fft = */ true,
+                )
+                enabled = true
+            }
+        } catch (_: Exception) {
+            // Audio effects not supported on this device/emulator — visualizer stays idle.
+        }
+    }
+
+    /** Disables (but does not release) the visualizer so the CPU isn't wasted while paused. */
+    private fun detachVisualizer() {
+        try { audioVisualizer?.enabled = false } catch (_: Exception) {}
+        binding.visualizerView.clearData()
+    }
+
+    /** Fully releases the native Visualizer resource. */
+    private fun releaseVisualizer() {
+        try { audioVisualizer?.release() } catch (_: Exception) {}
+        audioVisualizer = null
     }
 
     // ── Playlist dialogs ─────────────────────────────────────────────────────
