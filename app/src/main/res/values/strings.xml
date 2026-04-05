@@ -10,5 +10,15 @@
     <string name="unknown_artist">Unknown Artist</string>
     <string name="unknown_album">Unknown Album</string>
     <string name="unknown_title">Unknown</string>
+    <string name="equalizer">EQUALIZER</string>
+    <string name="eq_presets">PRESETS</string>
+    <string name="eq_frequency_bands">FREQUENCY BANDS</string>
+    <string name="eq_effects">EFFECTS</string>
+    <string name="eq_bass_boost">BASS BOOST</string>
+    <string name="eq_virtualizer">VIRTUALIZER</string>
+    <string name="eq_loudness">LOUDNESS ENHANCER</string>
+    <string name="eq_on">ON</string>
+    <string name="eq_off">OFF</string>
+    <string name="open_equalizer">Open equalizer</string>
     <string name="visualizer_mode_description">Cycle visualizer mode</string>
 </resources>
