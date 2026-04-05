@@ -130,6 +130,10 @@ object ThemeManager {
         // Seek bar
         binding.seekBar.progressTintList = ColorStateList.valueOf(accent)
         binding.seekBar.thumbTintList = ColorStateList.valueOf(secondary)
+
+        // Visualizer
+        binding.visualizerView.accentColor = accent
+        ImageViewCompat.setImageTintList(binding.btnVizMode, ColorStateList.valueOf(accent))
     }
 
     fun applyToPlaylistBinding(binding: ActivityPlaylistBinding) {
