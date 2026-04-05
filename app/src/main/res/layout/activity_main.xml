@@ -70,7 +70,7 @@
 
                 </LinearLayout>
 
-                <!-- Colour-picker button -->
+                <!-- Color-picker button -->
                 <ImageButton
                     android:id="@+id/btn_color_picker"
                     android:layout_width="40dp"

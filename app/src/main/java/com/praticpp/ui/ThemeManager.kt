@@ -124,7 +124,7 @@ object ThemeManager {
         binding.toolbar.setTitleTextColor(accent)
         binding.toolbar.navigationIconTintList = ColorStateList.valueOf(accent)
 
-        // Playlist name — secondary colour
+        // Playlist name — secondary color
         binding.tvPlaylistName.setTextColor(secondary)
         binding.tvPlaylistName.setShadowLayer(8f, 0f, 0f, secondary)
 
@@ -189,12 +189,7 @@ object ThemeManager {
 
     private fun buildPlayButtonBg(context: Context, accent: Int): StateListDrawable {
         val sw = dpToPx(context, 2)
-        val accentDim = Color.argb(
-            255,
-            (Color.red(accent) * 0.63f).toInt(),
-            (Color.green(accent) * 0.63f).toInt(),
-            (Color.blue(accent) * 0.63f).toInt()
-        )
+        val accentDim = accentDimColor()
         val pressedBg = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             colors = intArrayOf(Color.argb(255, 64, 64, 80), Color.argb(255, 16, 16, 24))
