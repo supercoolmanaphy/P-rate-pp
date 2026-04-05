@@ -18,6 +18,7 @@ object ThemeManager {
 
     private const val PREFS_NAME = "praticpp_theme"
     private const val KEY_HUE = "accent_hue"
+    private const val KEY_BG_THEME = "bg_theme"
 
     /** Default hue: neon cyan (~195°) */
     const val DEFAULT_HUE = 195f
@@ -25,17 +26,29 @@ object ThemeManager {
     var currentHue: Float = DEFAULT_HUE
         private set
 
+    var currentBgTheme: BgTheme = BgTheme.NONE
+        private set
+
     // ── Persistence ──────────────────────────────────────────────────────────
 
     fun load(context: Context) {
-        currentHue = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            .getFloat(KEY_HUE, DEFAULT_HUE)
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        currentHue = prefs.getFloat(KEY_HUE, DEFAULT_HUE)
+        currentBgTheme = BgTheme.valueOf(
+            prefs.getString(KEY_BG_THEME, BgTheme.NONE.name) ?: BgTheme.NONE.name
+        )
     }
 
     fun save(context: Context, hue: Float) {
         currentHue = hue.coerceIn(0f, 359.9f)
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .edit().putFloat(KEY_HUE, currentHue).apply()
+    }
+
+    fun saveBgTheme(context: Context, theme: BgTheme) {
+        currentBgTheme = theme
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit().putString(KEY_BG_THEME, theme.name).apply()
     }
 
     // ── Color calculations ────────────────────────────────────────────────────
@@ -83,6 +96,9 @@ object ThemeManager {
 
         // Palette button
         ImageViewCompat.setImageTintList(binding.btnColorPicker, ColorStateList.valueOf(accent))
+
+        // Theme picker button
+        ImageViewCompat.setImageTintList(binding.btnThemePicker, ColorStateList.valueOf(accent))
 
         // Section headers
         binding.tvSectionRecent.applyAccentGlow(accent, 6f)

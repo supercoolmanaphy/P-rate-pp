@@ -26,7 +26,6 @@ import com.praticpp.databinding.ActivityMainBinding
 import com.praticpp.databinding.DialogColorPickerBinding
 import com.praticpp.player.MusicPlayerManager
 import kotlinx.coroutines.launch
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -85,7 +84,9 @@ class MainActivity : AppCompatActivity() {
         setupPlayerControls()
         setupCreatePlaylistButton()
         setupColorPicker()
+        setupThemePicker()
         ThemeManager.applyToMainBinding(binding)
+        applyBackgroundTheme(ThemeManager.currentBgTheme)
         checkPermissionAndLoad()
     }
 
@@ -209,6 +210,57 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupThemePicker() {
+        binding.btnThemePicker.setOnClickListener {
+            showThemePickerDialog()
+        }
+    }
+
+    private fun showThemePickerDialog() {
+        val themes = BgTheme.entries.toTypedArray()
+        val names = themes.map { it.displayName }.toTypedArray()
+        val current = themes.indexOf(ThemeManager.currentBgTheme).coerceAtLeast(0)
+        android.app.AlertDialog.Builder(this, R.style.Y2kDialog)
+            .setTitle("BACKGROUND THEME")
+            .setSingleChoiceItems(names, current) { dialog, which ->
+                val chosen = themes[which]
+                ThemeManager.saveBgTheme(this, chosen)
+                applyBackgroundTheme(chosen)
+                dialog.dismiss()
+            }
+            .setNegativeButton("CANCEL", null)
+            .show()
+    }
+
+    private fun applyBackgroundTheme(theme: BgTheme) {
+        binding.flBackground.removeAllViews()
+        binding.vBgScrim.visibility = if (theme == BgTheme.NONE) View.GONE else View.VISIBLE
+
+        when (theme) {
+            BgTheme.NONE -> { /* nothing */ }
+            BgTheme.MATRIX -> {
+                val view = MatrixRainView(this)
+                view.accentColor = ThemeManager.accentColor()
+                binding.flBackground.addView(view)
+            }
+            BgTheme.PLASMA -> {
+                val view = PlasmaWaveView(this)
+                view.accentHue = ThemeManager.currentHue
+                binding.flBackground.addView(view)
+            }
+            BgTheme.STARFIELD -> {
+                val view = StarfieldView(this)
+                view.accentColor = ThemeManager.accentColor()
+                binding.flBackground.addView(view)
+            }
+            BgTheme.CHROME_GRID -> {
+                val view = ChromeGridView(this)
+                view.accentColor = ThemeManager.accentColor()
+                binding.flBackground.addView(view)
+            }
+        }
+    }
+
     private fun showColorPickerDialog() {
         val pickerBinding = DialogColorPickerBinding.inflate(LayoutInflater.from(this))
         pickerBinding.hueWheel.setHue(ThemeManager.currentHue)
@@ -226,6 +278,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("APPLY") { _, _ ->
                 ThemeManager.save(this, pendingHue)
                 ThemeManager.applyToMainBinding(binding)
+                applyBackgroundTheme(ThemeManager.currentBgTheme)
                 songAdapter.notifyDataSetChanged()
                 playlistAdapter.notifyDataSetChanged()
             }
