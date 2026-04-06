@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.ImageViewCompat
 import com.praticpp.databinding.ActivityMainBinding
 import com.praticpp.databinding.ActivityPlaylistBinding
@@ -142,7 +143,11 @@ object ThemeManager {
 
         // Toolbar
         binding.toolbar.setTitleTextColor(accent)
-        binding.toolbar.setNavigationIconTintList(ColorStateList.valueOf(accent))
+        binding.toolbar.navigationIcon?.let { icon ->
+            val wrapped = DrawableCompat.wrap(icon.mutate())
+            DrawableCompat.setTintList(wrapped, ColorStateList.valueOf(accent))
+            binding.toolbar.navigationIcon = wrapped
+        }
 
         // Playlist name — secondary color
         binding.tvPlaylistName.setTextColor(secondary)
