@@ -142,7 +142,7 @@ object ThemeManager {
 
         // Toolbar
         binding.toolbar.setTitleTextColor(accent)
-        binding.toolbar.navigationIconTintList = ColorStateList.valueOf(accent)
+        binding.toolbar.setNavigationIconTintList(ColorStateList.valueOf(accent))
 
         // Playlist name — secondary color
         binding.tvPlaylistName.setTextColor(secondary)
